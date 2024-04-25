@@ -37,4 +37,22 @@ class UserController extends Controller
             ], 404);
         }
     }
+
+    public function update($id, Request $request){
+        if(User::where('id', $id)->exists()){
+            $user = User::find($id);
+            $user->name = is_null($request->name) ? $user->name : $request->name;
+            $user->email = is_null($request->email) ? $user->email : $request->email;
+            $user->password = is_null($request->password) ? $user->password : $request->password;
+            $user->save();
+            return response()->json([
+                'message' => 'User updated'
+            ], 202);
+        }
+        else{
+            return response()->json([
+                'message' => 'User not found'
+            ], 404);
+        }
+    }
 }
