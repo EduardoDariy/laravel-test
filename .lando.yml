@@ -1,0 +1,4 @@
+name: laravel-test
+recipe: laravel
+config:
+  webroot: app/public

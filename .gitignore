@@ -1,3 +1,6 @@
+.vscode/
+.lando.local.yml
+
 /vendor/
 node_modules/
 npm-debug.log
