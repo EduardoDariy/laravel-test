@@ -1,4 +1,19 @@
 name: laravel-test
 recipe: laravel
 config:
+  via: apache
+  php: '7.4'
   webroot: app/public
+services:
+  appserver:
+    webroot: app/public
+    xdebug: debug
+    config:
+      php: .vscode/php.ini
+  pma:
+    type: phpmyadmin
+proxy:
+  appserver:
+    - laravel-test.lndo.site
+  pma:
+    - pma.laraveltest.lndo.site
