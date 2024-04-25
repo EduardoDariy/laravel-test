@@ -22,4 +22,19 @@ class UserController extends Controller
             'message' => 'User added'
         ], 201);
     }
+
+    public function destroy($id){
+        if(User::where('id', $id)->exists()){
+            $user = User::find($id);
+            $user->delete();
+            return response()->json([
+                'message' => 'User deleted'
+            ], 202);
+        }
+        else{
+            return response()->json([
+                'message' => 'User not found'
+            ], 404);
+        }
+    }
 }
