@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -16,7 +19,7 @@ class UserController extends Controller
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->save();
         return response()->json([
             'message' => 'User added'
@@ -55,7 +58,7 @@ class UserController extends Controller
             $user = User::find($id);
             $user->name = is_null($request->name) ? $user->name : $request->name;
             $user->email = is_null($request->email) ? $user->email : $request->email;
-            $user->password = is_null($request->password) ? $user->password : $request->password;
+            $user->password = Hash::make(is_null($request->password) ? $user->password : $request->password);
             $user->save();
             return response()->json([
                 'message' => 'User updated'
