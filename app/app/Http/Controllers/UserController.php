@@ -23,6 +23,18 @@ class UserController extends Controller
         ], 201);
     }
 
+    public function show($id){
+        if(User::where('id', $id)->exists()){
+            $user = User::find($id);
+            return response()->json($user);
+        }
+        else{
+            return response()->json([
+                'message' => 'User not found'
+            ], 404);
+        }
+    }
+
     public function destroy($id){
         if(User::where('id', $id)->exists()){
             $user = User::find($id);
